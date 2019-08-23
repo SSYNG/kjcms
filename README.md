@@ -11,4 +11,4 @@
 #默认访问地址：localhost:8080
 
 #前台首页
-![image](https://github.com/SSYNG/kjcms/images/前台首页.png)
+![image](https://github.com/SSYNG/kjcms/blob/master/images/前台首页.png)
