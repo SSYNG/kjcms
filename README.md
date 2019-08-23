@@ -9,3 +9,6 @@
 #如有咨询需求联系邮箱：song_kr@foxmail.com
 
 #默认访问地址：localhost:8080
+
+#前台首页
+![image](https://github.com/AngelSXD/SSYNG/kjcms/blob/master/images/前台首页.png)
