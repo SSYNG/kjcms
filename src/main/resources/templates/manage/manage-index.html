@@ -1,0 +1,151 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>咔叽壁纸站论坛管理系统</title>
+<link rel="stylesheet" type="text/css" href="/assets1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/assets1/css/style.css">
+<link rel="stylesheet" type="text/css" href="/assets1/css/font-awesome.min.css">
+<link rel="apple-touch-icon-precomposed" href="/assets1/images/icon/icon.png">
+<link rel="shortcut icon" href="/assets1images/icon/favicon.ico">
+<script src="/assets1/js/jquery-2.1.4.min.js"></script>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+<script type="text/javascript">  
+      var a=("登陆IP："+returnCitySN['cip'] + " <br/> <br/> IP归属地：" +returnCitySN['cname']); 
+      </script>
+
+</head>
+
+<body class="user-select">
+<section class="container-fluid">
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          <a class="navbar-brand" href="/">KJCMS</a> </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+           <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span  th:text="'欢迎您，'+${session.username}">&nbsp;</span> </a>
+            </li>
+            <li><a href="/logout" onClick="if(!confirm('是否确认退出？'))return false;">退出登录</a></li>
+          
+          </ul>
+         
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="row">
+    <aside class="col-sm-3 col-md-2 col-lg-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li class="active"><a href="/admin/index">报告信息</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+      
+        <li><a href="../admin/articlelist">文章</a></li>
+         <li><a href="/admin/commentlist">评论</a></li>
+         <li><a href="notice.html">公告</a></li>
+          <li><a href="/admin/userlist">用户</a></li>
+       
+        
+      </ul>
+    </aside>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main" style="background-image: url();">
+    
+        <h1 class="page-header">欢迎您，<span th:text="${session.username}">&nbsp;</span> </h1>
+        
+     
+        <h2 class="page-header">当前时间： </h2><div id="time"> </div>
+        <br/> 
+          <h2 class="">登陆信息： </h2>
+           <br/>
+          <script>
+         document.write(a);</script>
+     
+    </div>
+  </div>
+</section>
+<!--个人信息模态框-->
+<div class="modal fade" id="seeUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form action="" method="post">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" >个人信息</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table" style="margin-bottom:0px;">
+            <thead>
+              <tr> </tr>
+            </thead>
+            <tbody th:each=user:${userlist}>
+              <tr>
+                <td width="20%">姓名:</td>
+                <td width="80%"><input type="text" th:value="" class="form-control" name="truename" maxlength="10" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">用户名:</td>
+                <td width="80%"><input type="text" value="admin" class="form-control" name="username" maxlength="10" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">邮箱:</td>
+                <td width="80%"><input type="text" value="18538078281" class="form-control" name="usertel" maxlength="13" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">密码:</td>
+                <td width="80%"><input type="password" class="form-control" name="password" maxlength="18" autocomplete="off" /></td>
+              </tr>
+              
+            </tbody>
+            <tfoot>
+              <tr></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--个人登录记录模态框-->
+<script src="/assets1/js/bootstrap.min.js"></script> 
+<script src="/assets1/js/admin-scripts.js"></script>
+ 
+<script>
+window.onload=function(){
+//定时器每秒调用一次fnDate()
+setInterval(function(){
+	fnDate();
+	},
+	1000);
+	}
+
+//js 获取当前时间
+function fnDate(){
+	var oDiv=document.getElementById("time");
+	var date=new Date();
+	var year=date.getFullYear();//当前年份
+	var month=date.getMonth();//当前月份
+	var data=date.getDate();//天
+	var hours=date.getHours();//小时
+	var minute=date.getMinutes();//分
+	var second=date.getSeconds();//秒
+	var time=year+"-"+fnW((month+1))+"-"+fnW(data)+" "+fnW(hours)+":"+fnW(minute)+":"+fnW(second);
+	oDiv.innerHTML=time;
+	}
+function fnW(str){
+	var num;
+	str>10?num=str:num=str;
+	return num;
+	} 
+</script> 
+</body>
+</html>

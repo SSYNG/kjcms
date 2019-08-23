@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<p>作者:</p>
+<p th:text="${article.user.username}"></p>
+<p>标题:</p>
+<p th:text="${article.title}"></p>
+<p>正文:</p>
+<p th:text="${article.content}"></p>
+<p>作品:</p>
+<img width="50%" height="50%" th:src="${article.img}"/>
+</body>
+</html>

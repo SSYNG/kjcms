@@ -1,0 +1,288 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>咔叽壁纸站论坛管理系统 </title>
+<link rel="stylesheet" type="text/css" href="/assets1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/assets1/css/style.css">
+<link rel="stylesheet" type="text/css" href="/assets1/css/font-awesome.min.css">
+<link rel="apple-touch-icon-precomposed" href="/assets1/images/icon/icon.png">
+<link rel="shortcut icon" href="/assets1/images/icon/favicon.ico">
+ <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="/assets1/js/jquery-2.1.4.min.js"></script>
+<script>
+function addsuccess(){
+	alert("添加成功");
+}
+</script>
+</head>
+
+<body class="user-select">
+<section class="container-fluid">
+  <header>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          <a class="navbar-brand" href="/">KJCMS</a> </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+           
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span  th:text="'欢迎您，'+${session.username}">&nbsp;</span> </a>
+            </li>
+            <li><a href="/logout" onClick="if(!confirm('是否确认退出？'))return false;">退出登录</a></li>
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div class="row">
+    <aside class="col-sm-3 col-md-2 col-lg-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li><a href="/admin/index">报告信息</a></li>
+      </ul>
+      <ul class="nav nav-sidebar">
+        <li><a href="/admin/articlelist">文章</a></li>
+        <li><a href="/admin/commentlist">评论</a></li>
+        <li><a href="notice.html">公告</a></li>
+         <li class="active"><a href="/admin/userlist">用户</a></li>
+      </ul>
+    </aside>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+    <h1 class="page-header">操作</h1>
+        <ol class="breadcrumb">
+          <li><a data-toggle="modal" data-target="#addUser">增加用户</a></li>
+        </ol>
+        <h1 class="page-header"><span>管理 </span></h1>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th><span class="glyphicon glyphicon-th-large"></span> <span class="visible-lg">ID</span></th>
+                <th><span class="glyphicon glyphicon-user"></span> <span class="visible-lg">用户名</span></th>
+                <th><span class="glyphicon glyphicon-bookmark"></span> <span class="visible-lg">邮箱</span></th>
+                <th><span class="glyphicon glyphicon-pushpin"></span> <span class="visible-lg">密码</span></th>
+                <th><span class="glyphicon glyphicon-pushpin"></span> <span class="visible-lg">权限</span></th>
+                <th><span class="glyphicon glyphicon-pencil"></span> <span class="visible-lg">操作</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="user:${userlist}">
+              
+                <td th:text="${user.id}" th:id="'id'+${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:each="rolelist:${user.roles}">
+                	<span th:text="${rolelist.authority}"></span>
+                </td>
+                <td> <a data-toggle="delete">删除</a>
+                     <!--  <a data-toggle="update">修改</a>-->
+                    
+					<a th:href = "'/admin/userupdate?id='+${user.id}">修改</a> 
+			    </td>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </div>
+</section>
+<!--增加用户模态框-->
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel">
+  <div class="modal-dialog" role="document" style="max-width:450px;">
+      <div class="modal-content">
+      
+       <form action="/admin/useradd" method="post" autocomplete="off" draggable="false">
+        
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" >增加用户</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table" style="margin-bottom:0px;">
+            <thead>
+              <tr> </tr>
+            </thead>
+            <tbody>           
+              <tr>
+                <td width="20%">用户名:</td>
+                <td width="80%"><input type="text" value="" class="form-control" name="username" maxlength="10" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">邮箱：</td>
+                <td width="80%"><input type="text" value="" class="form-control" name="email" maxlength="13" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">密码:</td>
+                <td width="80%"><input type="password" class="form-control" name="password" maxlength="18" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">权限:</td>
+                <td width="80%">
+                <select name="roleid">
+                	<option th:each="role:${rolelist}" th:text="${role.authority}" th:value="${role.roleid}"></option>
+                </select>
+                </td>
+                
+              </tr> 
+            </tbody>
+            <tfoot>
+              <tr></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary" Onclick="addsuccess">提交</button>    
+        </div>
+        </form>
+      </div>
+  </div>
+</div>
+
+
+
+<!--用户信息模态框--修改用户弹窗-->
+<div class="modal fade" id="seeUser" tabindex="-1" role="dialog" aria-labelledby="seeUserModalLabel">
+
+  <div class="modal-dialog" role="document" style="max-width:450px;">
+ 
+    <form id="back" action="/admin/userupdate" method="post" autocomplete="off" draggable="false">
+      <input type="hidden" name = "id" value = "" />
+      <div class="modal-content">
+        <div class="modal-header">
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">修改用户</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table" style="margin-bottom:0px;">
+            <thead>
+             
+            </thead>
+            <tbody>
+         
+              <tr>
+                <td width="20%">用户名:</td>
+                <td width="80%"><input type="text" value="" class="form-control" id="username" name="username" maxlength="10" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">密码:</td>
+                <td width="80%"><input type="text" value="" class="form-control" name="password" maxlength="18" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">邮箱：</td>
+                <td width="80%"><input type="email" value="" class="form-control" name="email" maxlength="18" autocomplete="off" /></td>
+              </tr>
+              
+            </tbody>
+            <tfoot>
+              <tr></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <input type="hidden" name="userid" value="" />
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--个人信息模态框-->
+<div class="modal fade" id="seeUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form action="" method="post" autocomplete="off" draggable="false">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" >个人信息</h4>
+        </div>
+        <div class="modal-body">
+          <table class="table" style="margin-bottom:0px;">
+            <thead>
+              <tr> </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td width="20%">用户名:</td>
+                <td width="80%"><input type="text" value="admin" class="form-control" name="username" maxlength="10" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">邮箱:</td>
+                <td width="80%"><input type="text" value="18538078281" class="form-control" name="usertel" maxlength="13" autocomplete="off" /></td>
+              </tr>
+              <tr>
+                <td width="20%">密码:</td>
+                <td width="80%"><input type="password" class="form-control" name="password" maxlength="18" autocomplete="off" /></td>
+              </tr>
+
+            </tbody>
+            <tfoot>
+              <tr></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-primary">提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--右键菜单列表-->
+
+<script src="/assets1/js/bootstrap.min.js"></script> 
+<script src="/assets1/js/admin-scripts.js"></script> 
+<script>
+$(function () {
+    $("#main table tbody tr td a").click(function () {
+    	 var name = $(this);
+         var id = name.parent().parent().children().first().text(); //对应id   
+         if (name.attr("data-toggle") === "update") {
+             $.ajax({
+                 type: "POST",
+                 url: "/admin/userupdate",
+                 contentType:"application/json",
+                 dataType:"json",
+                 data:jsonStr,
+                 cache: false, //不缓存此页面   
+                 success: function (data) {
+                	 alert("ok");
+                     var data = JSON.parse(data);
+ 					$("#seeUser input[name='id']").val("1");
+ 					$("#seeUser input[name='username']").val("1");
+                     $('#seeUser').modal('show');
+                 },
+                 error:function(a,b,c){
+                 	alert(a);
+                 	alert(b);
+                 	alert(c);
+                 }
+             });
+         }else if (name.attr("data-toggle") === "delete") {
+             if (window.confirm("即将删除id为"+id+"的用户，此操作不可逆，是否确认？")) {
+                 $.ajax({
+                     type: "POST",
+                     url: "/admin/userdelete",
+                     data: "id=" + id,
+                     cache: false, //不缓存此页面   
+                     success: function (data) {
+                         window.location.reload();
+                     }
+                 });
+             };
+         };
+    });
+});
+</script>
+
+</body>
+</html>

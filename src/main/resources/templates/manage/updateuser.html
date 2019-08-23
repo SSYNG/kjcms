@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="zh-cn">
+
+<head>
+  <title>HOME</title>
+  <!-- Meta-Tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="keywords" content=""/>
+
+
+  <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+  <link href="/assets1/css/updatauserstyle.css" rel='stylesheet' type='text/css' />
+	<link href="http://fonts.googleapis.com/css?family=Abhaya+Libre:400,500,600,700,800" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1>用户信息更新</h1>
+  </header>
+  <div class="w3ls-contact">
+
+    <form id = "back" action="/admin/userupdate" method="post">
+    <label>
+          id:</label> <input type="text" name = "id" readonly="readonly" th:value = "${user.id}" />
+      <div class="agile-field-txt">
+        <label>
+          用户名:</label>
+        <input type="text" name="username"  th:value = "${user.username}"/>
+      </div>
+      <div class="agile-field-txt">
+        <label>
+          密码:</label>
+        <input type="text" name="password" th:value = "${user.password}"/>
+      </div>
+      <div class="agile-field-txt">
+        <label>
+          邮箱:</label>
+        <input type="text" name="email" th:value = "${user.email}"/>
+      </div>
+       <div class="agile-field-txt">
+        <label>
+          权限设置:</label> 
+        <select name="roleid" >
+        <option th:each="admin:${rolelist}"
+        th:text="${admin.authority}" th:value="${admin.roleid}"></option>
+        </select>
+      </div>
+      <div class="w3ls-contact  w3l-sub">
+        <input type="submit" value="提交更改">
+      </div>
+
+  </form> 
+  </div>
+
+  <div class="copy-wthree">
+    <p>&copy; Copyright © 2018 master Song. All rights reserved.</p>
+  </div>
+</body>
+</html>

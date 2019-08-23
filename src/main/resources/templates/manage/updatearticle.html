@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="zh-cn">
+
+<head>
+  <title>HOME</title>
+  <!-- Meta-Tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="keywords" content=""/>
+
+
+  <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+  <link href="/assets1/css/updatauserstyle.css" rel='stylesheet' type='text/css' />
+	<link href="http://fonts.googleapis.com/css?family=Abhaya+Libre:400,500,600,700,800" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1>文章信息更新</h1>
+  </header>
+  <div class="w3ls-contact">
+
+    <form id = "back" action="/admin/articleupdate" method="post">
+    <label>
+   id:</label> <input type="text" name = "articleid" readonly="readonly" th:value = "${article.articleid}" />
+      <div class="agile-field-txt">
+        <label>
+        标题:</label>
+        <input type="text" name="title"  th:value = "${article.title}"/>
+      </div>
+      <div class="agile-field-txt">
+        <label>
+          内容:</label>
+        <input type="text" name="content" th:value = "${article.content}"/>
+      </div>
+      <input type="hidden"  name="author" th:value = "${article.user.username}"/>
+     
+      <div class="w3ls-contact  w3l-sub">
+        <input type="submit" value="提交更改">
+      </div>
+
+  </form> 
+  </div>
+
+  <div class="copy-wthree">
+    <p>&copy; Copyright © 2018 master Song. All rights reserved.</p>
+  </div>
+</body>
+</html>

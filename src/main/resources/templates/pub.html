@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>发表作品</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="/sfassets/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/sfassets/css/form-elements.css">
+        <link rel="stylesheet" href="/sfassets/css/style.css">
+
+        <link rel="shortcut icon" href="/sfassets/ico/favicon.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/sfassets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/sfassets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/sfassets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="/sfassets/ico/apple-touch-icon-57-precomposed.png">
+
+    </head><style>
+    body{
+       background-image:url(/sfassets/img/bg4.jpg);
+       }
+    </style>
+    <body>
+
+        <!-- MODAL -->
+        
+        		<div class="modal-content"  style="width:800px;hight:280px;position:absolute;left:20%;top:10%;">
+        			
+        			<div class="modal-header">
+        				<button type="button" class="close" data-dismiss="modal">
+        					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        				</button>
+        				<h3 class="modal-title" id="modal-register-label">发表作品</h3>
+        				<p>现在将您的图片发表到网站吧！</p>
+        			</div>
+        			
+        			<div class="modal-body">
+        				
+	                    <form role="form" action="/user/pub" method="post" th:action="@{/user/pub}" enctype="multipart/form-data" class="registration-form">
+	                    	 <input type="hidden" name="id" th:value="${user.id}" />
+	                    	<div class="form-group">
+	                    		标题：<label class="sr-only" for="form-first-name"></label>
+	                        	<input type="text" name="title" placeholder="" class="form-first-name form-control" id="form-first-name">
+	                        </div>
+	                        <div class="form-group">
+	                        	作者：<label class="sr-only" for="form-last-name">作者</label>
+	                        	<input type="text" name="username" readonly="readonly" th:value="${user.username}" class="form-last-name form-control" id="form-last-name">
+	                        </div>
+	                        <div class="form-group">
+	                        	 <label>上传作品</label> <br/><input type="file" name="file"/>
+	                        	<label class="sr-only" for="form-email">选择作品</label>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="sr-only" for="form-about-yourself">内容</label>
+	                        	<textarea name="content" placeholder="介绍一下吧" 
+	                        				class="form-about-yourself form-control" id="form-about-yourself"></textarea>
+	                        </div>
+	                        <button type="submit" class="btn">发表</button>
+	                    </form>
+	                    
+        			</div>
+        			
+        		</div>
+   
+
+        <!-- Javascript -->
+        <script src="/sfassets/js/jquery-1.11.1.min.js"></script>
+        <script src="/sfassets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/sfassets/js/jquery.backstretch.min.js"></script>
+        <script src="/sfassets/js/scripts.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Cache-Control" content="no-transform " />
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title></title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link href="/assets2/css/global.css" type="text/css" rel="stylesheet">
+	<link href="/assets2/css/show.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="/assets2/js/jquery-1.11.3.min.js"></script>
+</head>
+
+
+<body>
+<div class="topbox new_topmini">
+	<div class="top clearfix">
+		<ul class="topl fl">
+			<li class="home"><a href="/user/index"><i></i>咔叽壁纸站</a>|</li>
+			<li><a href="" target="_blank">手机壁纸</a>|</li>
+			<li><a href="" target="_blank">电脑壁纸</a>|</li>
+			<li><a href="" target="_blank">平板壁纸</a>|</li>
+			<li><a href="" target="_blank">精选一图</a>|</li>
+			<li><a href="" target="_blank">热门壁纸</a>|</li>
+			
+		</ul>
+		<ul class="topr fr"><li>
+		<span th:if="${session.username!=null}" th:text="'欢迎您，'+${session.username}">&nbsp;</span>
+			<span th:if="${session.username==null}"><a href="/user/reg">登陆</a>&nbsp;<a href="/user/reg">注册</a></span>
+		   <!--  <li><a href="http://passport.5857.com/home/index/login.html" target="_blank" class="login_a">登录</a></li><li><a href="http://passport.5857.com/home/index/register.html" target="_blank" class="reg_a">注册</a></li> -->
+		</li>
+		</ul>
+	</div>
+</div>
+
+
+<div class="header">
+	<div class="header-top">
+	<div class="in">
+		<div class="logo fl"><a href="http://www.5857.com/"><img src="/assets2/img/logo.png" width="229" height="80" alt="咔叽摄影"></a></div>
+		<div class="search fl">
+			<form action="http://www.5857.com/index.php" method="get" target="_blank" name="searchTop">
+				<input type="hidden" name="m" value="search">
+				<input type="hidden" name="c" value="index">
+				<input type="hidden" name="a" value="init">
+				<input type="hidden" name="typeid" value="3">
+				<div class="search_box">
+					<input type="text" autocomplete="off" id="bdcsMain" name="q" class="sech_keyword" value="" style="color: #acacac" onBlur="if(this.value=='') this.value='美女'; this.style.color='#acacac';" onFocus="if(this.value=='美女') this.value=''; this.style.color='#333';">
+					<input type="submit" value="搜索" class="sech_btn">
+				</div>
+			</form>
+			
+		</div>
+		<div class="head-more fr">
+			<a href="http://s.69876.com/dynamic" target="_blank" class="head-app" id="head_app"><i></i>联系站长
+				<div class="app_code">
+					<em class="angle"></em>
+					<img src="/assets2/img/wx.png" alt="">
+					
+				</div>
+			</a>
+			<a th:href="'/user/pub?id='+${user.id}" class="head-feed" id="head_feed" target="_blank"><i></i>我要上传</a>
+		</div>
+		<div id="feedback" style="display:none;"></div>
+	</div>
+</div>	<div class="nav2">
+	<div class="in">
+		<ul>
+			<ul>
+				<li><a class="nav-cur" href="/user/index">首页</a></li>
+				
+				<li><a href="">风光</a></li>
+				<li><a href="">卡通</a></li>
+				<li><a href="">创意</a></li>
+				<li><a href="">汽车</a></li>
+				<li><a href="">游戏</a></li>
+				<li><a href="">建筑</a></li>
+				
+			</ul>
+		</ul>
+	</div>
+</div>
+</div>
+
+<!-- head end -->
+
+
+
+<div class="cover1"></div>
+<div class="main">
+	<div class="position">当前位置：<a href="/user/index">咔叽壁纸站</a> &gt; <a href="">壁纸</a>测试内容</div>
+
+	<div class="main_center">
+		<h1 class="main_center_h2"><p th:text="${article.title}"></p></h1>
+		<div class="cb plr65">
+			<p class="fl main_fenlie">
+                    <span>分类：
+						 <a href="" target="_blank">测试</a>
+					</span>			
+				<span>2018-12-20 </span>
+				<span>作者：<p th:text="${article.user.username}"></p></span>				
+			</p>
+		</div>
+
+		<div class="main_center_img">
+
+			<img th:src="${article.img}" alt="" />
+
+		</div>
+		
+		<p>正文:</p>
+        <p style="text-align: center;" class="img_list_jianjie" th:text="${article.content}"></p>
+</div>
+
+	
+	<div class="desk-section">
+	
+		<div class="hd"><h3>用户评论</h3></div>
+				<div class="cmtbox" id="comment_box"  data="content_7-77515-1">
+			<div class="cmt-header">
+				<div class="head-w clearfix">
+					<!-- <div class="head-user">
+						<label>用户：</label>
+						<input type="text" readonly="readonly" name="username" th:text="${comment.user.username}" id="userText" class="user_name">
+					</div> -->
+				</div>
+				<form action="/user/dosend" method="post">
+				<div class="post-w">
+					<div class="post-wrap-w">
+						<div class="wrap-area-w">
+							<div class="area-textarea-w">
+								<input type="hidden" name="articleid"  th:value="${article.articleid}">
+								<input type="hidden" name="id"   th:value="${user.id}">
+								<textarea class="textarea-fw" name="content"  placeholder="来说两句吧..." id="public_saytext"></textarea>
+							</div>
+						</div>
+						<div class="wrap-action-w">
+							
+							<div class="action-issue-w fr">
+									<button type="submit" class="btn-fw" node-type="issue" >发表评论</button>
+							</div>
+							</form>
+							<div class="action-bz-w fr">注：您的评论需要经过审核才能显示哦，请文明发言！</div>
+						</div>
+					</div>
+					<div class="prompt-w" style="display:none;"><span></span></div>
+					
+				</div>
+			</div>
+			<div class="cmt-list" style="display: none;">
+				<!-- 最新评论 -->
+				<div class="cmt-list-title">最新评论<span class="total-num">（已有<em class="red"></em>条评论）</span></div>
+				<div class="cmt-list-block"></div>
+				<div class="cmt-list-more" page="1" pagesize="10" style="display: none;"><a href="javascript:void(0);" onclick="comment_list();">查看更多评论</a></div>
+			</div>
+		</div>
+	</div>
+	<span id="10" class="tyTestPos"></span>
+</div>
+
+<script type="text/javascript" src="http://www.5857.com/api.php?op=count&id=77515&modelid=3"></script>
+<script type="text/javascript" src="/assets2/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/assets2/js/sjqqapi.js"></script>
+<script type="text/javascript" src="/assets2/js/show_comment.js"></script>
+
+<script type="text/javascript">
+    $(".title_save").mousemove(function(){
+        $(".smcode").show();
+    })
+    $(".title_save").mouseout(function(){
+        $(".smcode").hide();
+    })
+</script>
+<div id="footer">
+	<div class="foot-in">
+		<div class="foot-link">
+			<div class="footlogo fl"></div>
+			<div class="foot-info fl">
+				<p class="footnav">
+										<a href="#" target="_blank" rel="nofollow">关于我们</a><em>|</em>
+										<a href="#" target="_blank" rel="nofollow">网站帮助</a><em>|</em>
+										<a href="#" target="_blank" rel="nofollow">广告合作</a><em>|</em>
+										<a href="#" target="_blank" rel="nofollow">用户投稿</a><em>|</em>
+										<a href="#" target="_blank" rel="nofollow">网站地图</a><em>|</em>
+										<a href="#" target="_blank" rel="nofollow"> 标签合集</a><em>|</em>
+										
+				</p>
+				<p>咔叽壁纸站有部分资源来源于互联网，图片版权归原作者所有，若有侵权问题请发邮箱song_kr@foxmail.com告知，我们会尽快处理。</p>
+			</div>
+			<div class="foot-code fr">
+				<img src="http://www.5857.com/statics/v3/images/iphone_code.png" >
+				<p>手机扫描下载 <em>壁纸 APP</em> 有惊喜哦 ~</p>
+			</div>
+		</div>
+		<div class="foot-cert">
+			<div class="safety">
+				<a href="http://www.12377.cn/" target="_blank" rel="nofollow"><i class="icon_safe1"></i>中国互联网举报中心</a>
+				<a href="http://www.cyberpolice.cn/wfjb/" target="_blank" rel="nofollow"><i class="icon_safe2"></i>网络违法举报中心</a>
+				<a href="http://www.12321.cn/" target="_blank" rel="nofollow"><i class="icon_safe3"></i>垃圾信息举报中心</a>
+				<a href="http://wpa.qq.com/msgrd?v=3&uin=188831220&site=qq&menu=yes" target="_blank" rel="nofollow"><img src="http://www.5857.com/statics/v3/images/button_qq.png" alt="广告合作" title="广告合作联系专用">广告合作</a>
+			</div>
+			<p class="tips_text">&copy; Copyright © 2018 master Song. All rights reserved.</p>
+		</div>
+	</div>
+</div>
+
+<span id="13" class="tyTestPos"></span>
+<script type="text/javascript" src="/assets2/js/global.js"></script>
+<script type="text/javascript" src="/assets2/js/layer.js"></script>
+<div style="display:none;"><span id="20" class="tyTestPos"></span></div>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+<script>tyLoader();</script><script class="closetag">tyLoader(true);</script>
+</body>
+</html>
